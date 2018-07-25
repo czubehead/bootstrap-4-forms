@@ -10,28 +10,27 @@
 namespace Czubehead\BootstrapForms\Inputs;
 
 
-use Czubehead\BootstrapForms\Traits\BootstrapButtonTrait;
 use Nette\Forms\Controls\Button;
 use Nette\Utils\Html;
+use Tracy\Debugger;
 
 
 /**
  * Class ButtonInput.
  * Returns &lt;button&gt; whose content can be set as caption. This is not a submit button.
+ *
  * @package Czubehead\BootstrapForms
  * @property string $btnClass
  */
-class ButtonInput extends Button
-{
-	use BootstrapButtonTrait;
-
+class ButtonInput extends Button {
 	/**
 	 * ButtonInput constructor.
+	 *
 	 * @param null|string|Html $content
+	 * @param string           $buttonClasses
 	 */
-	public function __construct($content = NULL)
-	{
+	public function __construct($content = null, string $buttonClasses = 'btn btn-primary') {
 		parent::__construct($content);
-		$this->addBtnClass($this->getControlPart());
+		$this->control->class[] = $buttonClasses;
 	}
 }

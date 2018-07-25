@@ -43,7 +43,6 @@ trait BootstrapContainerTrait
 	public function addButton($name, $content = NULL, $btnClass = 'btn-secondary')
 	{
 		$comp = new ButtonInput($content);
-		$comp->setBtnClass($btnClass);
 		$this->addComponent($comp, $name);
 
 		return $comp;
