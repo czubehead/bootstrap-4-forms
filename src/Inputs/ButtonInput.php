@@ -32,22 +32,6 @@ class ButtonInput extends Button
 	public function __construct($content = NULL)
 	{
 		parent::__construct($content);
-	}
-
-	/**
-	 * Control HTML
-	 * @param null|string|Html $content
-	 * @return Html
-	 */
-	public function getControl($content = NULL)
-	{
-		$btn = Html::el('button', [
-			'type' => 'button',
-			'name' => $this->getHtmlName(),
-		]);
-		$btn->setHtml($content === NULL ? $this->caption : $content);
-		$this->addBtnClass($btn);
-
-		return $btn;
+		$this->addBtnClass($this->getControlPart());
 	}
 }
