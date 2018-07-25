@@ -40,9 +40,9 @@ trait BootstrapContainerTrait
 	 * @param string           $btnClass secondary button class (primary is 'btn')
 	 * @return ButtonInput
 	 */
-	public function addButton($name, $content = NULL, $btnClass = 'btn-secondary')
+	public function addButton($name, $content = NULL, $btnClass = ButtonInput::DEFAULT_CLASS)
 	{
-		$comp = new ButtonInput($content);
+		$comp = new ButtonInput($content, $btnClass);
 		$this->addComponent($comp, $name);
 
 		return $comp;
@@ -50,12 +50,21 @@ trait BootstrapContainerTrait
 
 	/**
 	 * @param string $name
-	 * @param null   $caption
+	 * @param string|object   $caption
+	 * @param string $controlClass
+	 * @param string $labelClass
+	 * @param string $containerClass
+	 *
 	 * @return CheckboxInput
 	 */
-	public function addCheckbox($name, $caption = NULL)
-	{
-		$comp = new CheckboxInput($caption);
+	public function addCheckbox(
+		$name,
+		$caption = NULL,
+		$controlClass = CheckboxInput::DEFAULT_CONTROL_CLASS,
+		$labelClass = CheckboxInput::DEFAULT_LABEL_CLASS,
+		$containerClass = CheckboxInput::DEFAULT_CONTAINER_CLASS
+	) {
+		$comp = new CheckboxInput($caption, $controlClass, $labelClass, $containerClass);
 		$this->addComponent($comp, $name);
 
 		return $comp;
@@ -213,10 +222,9 @@ trait BootstrapContainerTrait
 	 * @param string $btnClass secondary button class (primary is 'btn')
 	 * @return SubmitButtonInput
 	 */
-	public function addSubmit($name, $caption = NULL, $btnClass = 'btn-primary')
+	public function addSubmit($name, $caption = NULL, $btnClass = SubmitButtonInput::DEFAULT_CLASS)
 	{
-		$comp = new SubmitButtonInput($caption);
-		$comp->setBtnClass($btnClass);
+		$comp = new SubmitButtonInput($caption, $btnClass);
 		$this->addComponent($comp, $name);
 
 		return $comp;
