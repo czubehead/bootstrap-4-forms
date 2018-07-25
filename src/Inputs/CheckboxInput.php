@@ -17,6 +17,7 @@ use Nette\Utils\Html;
 
 /**
  * Class CheckboxInput. Single checkbox.
+ *
  * @package Czubehead\BootstrapForms\Inputs
  */
 class CheckboxInput extends Checkbox implements IValidationInput
@@ -26,71 +27,54 @@ class CheckboxInput extends Checkbox implements IValidationInput
 		showValidation as protected _rawShowValidation;
 	}
 
-	/**
-	 * Generates a checkbox
-	 * @return Html
-	 */
-	public function getControl()
-	{
-		parent::getControl();
+	const
+		DEFAULT_CONTROL_CLASS = 'custom-control-input',
+		DEFAULT_LABEL_CLASS = 'custom-control-label',
+		DEFAULT_CONTAINER_CLASS = 'custom-control custom-checkbox';
 
-		return self::makeCheckbox($this->getHtmlName(), $this->getHtmlId(), $this->translate($this->caption), $this->value, FALSE, $this->required,
-			$this->disabled);
+	/**
+	 * CheckboxInput constructor.
+	 *
+	 * @param string|object $label
+	 * @param string        $controlClass
+	 * @param string        $labelClass
+	 * @param string        $containerCLass
+	 */
+	public function __construct(
+		$label = null,
+		$controlClass = self::DEFAULT_CONTROL_CLASS,
+		$labelClass = self::DEFAULT_LABEL_CLASS,
+		$containerCLass = self::DEFAULT_CONTAINER_CLASS
+	) {
+		parent::__construct($label);
+		$this->control->class[] = $controlClass;
+		$this->label->class[]   = $labelClass;
+
+		$this->getSeparatorPrototype()
+		     ->setName('div')->class[] = $containerCLass;
 	}
 
 	/**
-	 * Makes a Bootstrap checkbox HTML
-	 * @param string      $name
-	 * @param string      $htmlId
-	 * @param string|null $caption
-	 * @param bool        $checked
-	 * @param bool|mixed  $value pass false to omit
-	 * @param bool        $required
-	 * @param bool        $disabled
+	 * Generates a checkbox
+	 *
 	 * @return Html
 	 */
-	public static function makeCheckbox(
-		$name, $htmlId, $caption = NULL, $checked = FALSE, $value = FALSE, $required = FALSE,
-		$disabled = FALSE)
-	{
-		$label = Html::el('label', ['class' => ['custom-control', 'custom-checkbox']]);
-		$input = Html::el('input', [
-			'type'     => 'checkbox',
-			'class'    => ['custom-control-input'],
-			'name'     => $name,
-			'disabled' => $disabled,
-			'required' => $required,
-			'checked'  => $checked,
-			'id'       => $htmlId,
-		]);
-		if ($value !== FALSE) {
-			$input->attrs += [
-				'value' => $value,
-			];
-		}
-
-		$label->addHtml($input);
-		$label->addHtml(
-			Html::el('label', [
-				'class' => ['custom-control-label'],
-				'for'   => $htmlId,
-			])->setText($caption)
-		);
-
-		$line = Html::el('div');
-		$line->addHtml($label);
-
-		return $label;
+	public function getControl() {
+		return (clone $this->getSeparatorPrototype())
+		            ->addHtml($this->getControlPart())
+		            ->addHtml($this->getLabelPart());
 	}
 
 	/**
 	 * Modify control in such a way that it explicitly shows its validation state.
 	 * Returns the modified element.
+	 *
 	 * @param Html $control
+	 * TODO fix?
+	 *
 	 * @return Html
 	 */
-	public function showValidation(Html $control)
-	{
+	public function showValidation(Html $control) {
 		// add validation classes to the first child, which is <input>
 		$control->getChildren()[0] = $this->_rawShowValidation($control->getChildren()[0]);
 

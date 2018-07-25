@@ -14,6 +14,7 @@ use Czubehead\BootstrapForms\Traits\ChoiceInputTrait;
 use Czubehead\BootstrapForms\Traits\StandardValidationTrait;
 use Nette\Forms\Controls\CheckboxList;
 use Nette\Utils\Html;
+use Tracy\Debugger;
 
 
 /**
@@ -30,10 +31,12 @@ class CheckboxListInput extends CheckboxList implements IValidationInput
 
 	/**
 	 * @inheritdoc
+	 * TODO make adjustable
 	 */
 	public function getControl()
 	{
-		parent::getControl();
+	$og = 	parent::getControl();
+	Debugger::barDump($og);
 		$fieldset = Html::el('fieldset', [
 			'disabled' => $this->isControlDisabled(),
 		]);
@@ -41,8 +44,34 @@ class CheckboxListInput extends CheckboxList implements IValidationInput
 		$baseId = $this->getHtmlId();
 		$c = 0;
 		foreach ($this->items as $value => $caption) {
-			$line = CheckboxInput::makeCheckbox($this->getHtmlName(), $baseId . $c, $caption, $this->isValueSelected($value),
-				$value, FALSE, $this->isValueDisabled($value));
+			$line = Html::el('div',[
+				'class' => CheckboxInput::DEFAULT_CONTAINER_CLASS
+			]);
+
+			$htmlId = $baseId . $c;
+			$input = Html::el('input',[
+				'type'  => 'checkbox',
+				'class' => CheckboxInput::DEFAULT_CONTROL_CLASS,
+				'name'     => $this->getHtmlName(),
+				'disabled' => $this->isValueDisabled($value),
+				'required' => FALSE,
+				'checked'  => $this->isValueSelected($value),
+				'id'       => $htmlId,
+			]);
+			if ($value !== FALSE) {
+				$input->attrs += [
+					'value' => $value,
+				];
+			}
+
+			$label = Html::el('label',[
+				'class' => CheckboxInput::DEFAULT_LABEL_CLASS,
+				'for'   => $htmlId
+			])->setText($caption);
+
+
+			$line->addHtml($input);
+			$line->addHtml($label);
 
 			$fieldset->addHtml($line);
 			$c++;
@@ -55,6 +84,7 @@ class CheckboxListInput extends CheckboxList implements IValidationInput
 	 * Modify control in such a way that it explicitly shows its validation state.
 	 * Returns the modified element.
 	 * @param Html $control
+	 * TODO fix?
 	 * @return Html
 	 */
 	public function showValidation(Html $control)
