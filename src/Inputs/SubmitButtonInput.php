@@ -27,7 +27,7 @@ class SubmitButtonInput extends SubmitButton {
 	 * @param null|string|Html $content
 	 * @param string           $buttonClasses
 	 */
-	public function __construct($content = null, string $buttonClasses = 'btn btn-primary') {
+	public function __construct($content = null, $buttonClasses = 'btn btn-primary') {
 		parent::__construct($content);
 		$this->control->class[] = $buttonClasses;
 	}
