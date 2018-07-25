@@ -19,17 +19,20 @@ use Nette\Utils\Html;
  * Returns &lt;button&gt; whose content can be set as caption. This is not a submit button.
  *
  * @package Czubehead\BootstrapForms
- * @property string $btnClass
  */
 class ButtonInput extends Button {
+
+	const DEFAULT_CLASS = 'btn-primary';
+
 	/**
 	 * ButtonInput constructor.
 	 *
 	 * @param null|string|Html $content
-	 * @param string           $buttonClasses
+	 * @param string           $buttonClass
 	 */
-	public function __construct($content = null, $buttonClasses = 'btn btn-primary') {
+	public function __construct($content = null, $buttonClass = self::DEFAULT_CLASS) {
 		parent::__construct($content);
-		$this->control->class[] = $buttonClasses;
+		$this->control->class[] = 'btn';
+		$this->control->class[] = $buttonClass;
 	}
 }
