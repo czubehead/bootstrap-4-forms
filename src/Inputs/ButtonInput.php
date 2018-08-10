@@ -20,19 +20,25 @@ use Nette\Utils\Html;
  *
  * @package Czubehead\BootstrapForms
  */
-class ButtonInput extends Button {
+class ButtonInput extends Button
+{
 
-	const DEFAULT_CLASS = 'btn-primary';
+    const DEFAULT_CLASS = 'btn-primary';
 
-	/**
-	 * ButtonInput constructor.
-	 *
-	 * @param null|string|Html $content
-	 * @param string           $buttonClass
-	 */
-	public function __construct($content = null, $buttonClass = self::DEFAULT_CLASS) {
-		parent::__construct($content);
-		$this->control->class[] = 'btn';
-		$this->control->class[] = $buttonClass;
-	}
+    /**
+     * ButtonInput constructor.
+     *
+     * @param null|string|Html $content
+     * @param string           $buttonClass
+     */
+    public function __construct($content = null, $buttonClass = self::DEFAULT_CLASS)
+    {
+        parent::__construct();
+        $this->control->setName('button');
+        $this->control->class[] = 'btn';
+        $this->control->class[] = $buttonClass;
+        if ($content) {
+            $this->control->addHtml($content);
+        }
+    }
 }
