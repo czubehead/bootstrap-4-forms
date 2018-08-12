@@ -34,6 +34,8 @@ class TextAreaInput extends TextArea implements IValidationInput, IAutocompleteI
 	{
 		parent::__construct($label);
 		$this->setRequired(FALSE);
+		$this->getControlPrototype()
+            ->class[] = 'form-control';
 	}
 
 	/**
@@ -67,9 +69,7 @@ class TextAreaInput extends TextArea implements IValidationInput, IAutocompleteI
 	public function getControl()
 	{
 		$control = parent::getControl();
-		BootstrapUtils::standardizeClass($control);
 
-		$control->class[] = 'form-control';
 		if ($this->autocomplete !== NULL) {
 			$control->setAttribute('autocomplete', $this->autocomplete ? 'on' : 'off');
 		}

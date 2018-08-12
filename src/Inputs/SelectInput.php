@@ -13,57 +13,69 @@ namespace Czubehead\BootstrapForms\Inputs;
 use Czubehead\BootstrapForms\Traits\ChoiceInputTrait;
 use Czubehead\BootstrapForms\Traits\InputPromptTrait;
 use Czubehead\BootstrapForms\Traits\StandardValidationTrait;
+use Nette\Forms\Controls\BaseControl;
 use Nette\Forms\Controls\SelectBox;
 
 
 /**
  * Class SelectInput.
  * Single select.
+ *
  * @package Czubehead\BootstrapForms
  */
 class SelectInput extends SelectBox implements IValidationInput
 {
-	use ChoiceInputTrait;
-	use InputPromptTrait;
-	use StandardValidationTrait;
 
-	/**
-	 * SelectInput constructor.
-	 * @param null       $label
-	 * @param array|null $items
-	 */
-	public function __construct($label = NULL, $items = NULL)
-	{
-		parent::__construct($label);
-		$this->setItems($items);
-	}
+    use ChoiceInputTrait;
+    use InputPromptTrait;
+    use StandardValidationTrait;
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getControl()
-	{
-		$select = parent::getControl()->setHtml(NULL);
+    /**
+     * SelectInput constructor.
+     *
+     * @param null       $label
+     * @param array|null $items
+     */
+    public function __construct($label = null, $items = null)
+    {
+        parent::__construct($label);
+        $this->setItems($items);
 
-		$select->attrs += [
-			'class'    => ['custom-select'],
-			'disabled' => $this->isControlDisabled(),
-		];
-		$options = $this->rawItems;
-		if (!empty($this->prompt)) {
-			$options = [NULL => $this->prompt] + $options;
-		}
+        $this->getControlPrototype()
+             ->setName('select')
+            ->class[] = 'custom-select';
+    }
 
-		$optList = $this->makeOptionList($options, function ($value) {
-			return [
-				'selected' => $this->isValueSelected($value),
-				'disabled' => $this->isValueDisabled($value),
-			];
-		});
-		foreach ($optList as $item) {
-			$select->addHtml($item);
-		}
+    /**
+     * @inheritdoc
+     */
+    public function getControl()
+    {
+        $select = BaseControl::getControl();
 
-		return $select;
-	}
+        $select->setAttribute(
+            'disabled',
+            $this->isControlDisabled()
+        );
+
+        $options = $this->rawItems;
+        if (!empty($this->prompt)) {
+            $options = [null => $this->prompt] + $options;
+        }
+
+        $optList = $this->makeOptionList(
+            $options,
+            function ($value) {
+                return /* TODO merge with optionAttrs */[
+                    'selected' => $this->isValueSelected($value),
+                    'disabled' => $this->isValueDisabled($value),
+                ];
+            }
+        );
+        foreach ($optList as $item) {
+            $select->addHtml($item);
+        }
+
+        return $select;
+    }
 }

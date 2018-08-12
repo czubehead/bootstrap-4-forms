@@ -51,20 +51,14 @@ trait BootstrapContainerTrait
 	/**
 	 * @param string $name
 	 * @param string|object   $caption
-	 * @param string $controlClass
-	 * @param string $labelClass
-	 * @param string $containerClass
 	 *
 	 * @return CheckboxInput
 	 */
 	public function addCheckbox(
 		$name,
-		$caption = NULL,
-		$controlClass = CheckboxInput::DEFAULT_CONTROL_CLASS,
-		$labelClass = CheckboxInput::DEFAULT_LABEL_CLASS,
-		$containerClass = CheckboxInput::DEFAULT_CONTAINER_CLASS
+		$caption = NULL
 	) {
-		$comp = new CheckboxInput($caption, $controlClass, $labelClass, $containerClass);
+		$comp = new CheckboxInput($caption);
 		$this->addComponent($comp, $name);
 
 		return $comp;

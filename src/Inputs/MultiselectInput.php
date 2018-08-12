@@ -50,7 +50,7 @@ class MultiselectInput extends MultiSelectBox implements IValidationInput
 		}
 
 		$optList = $this->makeOptionList($options, function ($value) {
-			return [
+			return /* TODO merge with optionAttrs */[
 				'selected' => $this->isValueSelected($value),
 				'disabled' => $this->isValueDisabled($value),
 			];

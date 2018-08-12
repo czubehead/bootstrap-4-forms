@@ -41,6 +41,9 @@ class TextInput extends \Nette\Forms\Controls\TextInput implements IValidationIn
 	{
 		parent::__construct($label, $maxLength);
 		$this->setRequired(FALSE);
+
+		$this->getControlPrototype()
+            ->class[] = 'form-control';
 	}
 
 	/*
@@ -78,9 +81,7 @@ class TextInput extends \Nette\Forms\Controls\TextInput implements IValidationIn
 	public function getControl()
 	{
 		$control = parent::getControl();
-		BootstrapUtils::standardizeClass($control);
 
-		$control->class[] = 'form-control';
 		if (!empty($this->placeholder)) {
 			$control->setAttribute('placeholder', $this->placeholder);
 		}

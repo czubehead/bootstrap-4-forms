@@ -22,62 +22,61 @@ use Nette\Utils\Html;
  */
 class CheckboxInput extends Checkbox implements IValidationInput
 {
-	use StandardValidationTrait {
-		// we only want to use it on a specific child
-		showValidation as protected _rawShowValidation;
-	}
 
-	const
-		DEFAULT_CONTROL_CLASS = 'custom-control-input',
-		DEFAULT_LABEL_CLASS = 'custom-control-label',
-		DEFAULT_CONTAINER_CLASS = 'custom-control custom-checkbox';
+    use StandardValidationTrait {
+        // we only want to use it on a specific child
+        showValidation as protected _rawShowValidation;
+    }
 
-	/**
-	 * CheckboxInput constructor.
-	 *
-	 * @param string|object $label
-	 * @param string        $controlClass
-	 * @param string        $labelClass
-	 * @param string        $containerCLass
-	 */
-	public function __construct(
-		$label = null,
-		$controlClass = self::DEFAULT_CONTROL_CLASS,
-		$labelClass = self::DEFAULT_LABEL_CLASS,
-		$containerCLass = self::DEFAULT_CONTAINER_CLASS
-	) {
-		parent::__construct($label);
-		$this->control->class[] = $controlClass;
-		$this->label->class[]   = $labelClass;
+    const
+        DEFAULT_CONTROL_CLASS = 'custom-control-input',
+        DEFAULT_LABEL_CLASS = 'custom-control-label',
+        DEFAULT_CONTAINER_CLASS = 'custom-control custom-checkbox';
 
-		$this->getSeparatorPrototype()
-		     ->setName('div')->class[] = $containerCLass;
-	}
+    /**
+     * CheckboxInput constructor.
+     *
+     * @param string|object $label
+     */
+    public function __construct($label = null)
+    {
+        parent::__construct($label);
+        $this->control->class[] = self::DEFAULT_CONTROL_CLASS;
+        $this->label->class[] = self::DEFAULT_LABEL_CLASS;
 
-	/**
-	 * Generates a checkbox
-	 *
-	 * @return Html
-	 */
-	public function getControl() {
-		return (clone $this->getSeparatorPrototype())
-		            ->addHtml($this->getControlPart())
-		            ->addHtml($this->getLabelPart());
-	}
+        $this->getSeparatorPrototype()
+             ->setName('div')
+            ->class[] = self::DEFAULT_CONTAINER_CLASS;
+    }
 
-	/**
-	 * Modify control in such a way that it explicitly shows its validation state.
-	 * Returns the modified element.
-	 *
-	 * @param Html $control
-	 * TODO fix?
-	 *
-	 * @return Html
-	 */
-	public function showValidation(Html $control) {
-		// add validation classes to the first child, which is <input>
-		$control->getChildren()[0] = $this->_rawShowValidation($control->getChildren()[0]);
+    /**
+     * Generates a checkbox
+     *
+     * @return Html
+     */
+    public function getControl()
+    {
+        return (clone $this->getSeparatorPrototype())
+            ->addHtml($this->getControlPart())
+            ->addHtml($this->getLabelPart());
+    }
 
-		return $control;
-	}
+    /**
+     * Modify control in such a way that it explicitly shows its validation state.
+     * Returns the modified element.
+     *
+     * @param Html $control
+     * TODO fix?
+     *
+     * @return Html
+     */
+    public function showValidation(Html $control)
+    {
+        //TODO maybe edit through $this->getControlPart()
+        // add validation classes to the second child from the end, which is <input>
+        $k = count($control->getChildren()) - 2;
+        $control->getChildren()[$k] = $this->_rawShowValidation($control->getChildren()[$k]);
+
+        return $control;
+    }
 }
