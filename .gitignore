@@ -1,6 +1,3 @@
 vendor/
 composer.lock
 .idea/
-tests/log
-tests/temp
-tests/output
