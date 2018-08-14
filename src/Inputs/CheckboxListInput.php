@@ -45,7 +45,7 @@ class CheckboxListInput extends CheckboxList implements IValidationInput
 
         $this->getControlPrototype()->class[] = CheckboxInput::DEFAULT_CONTROL_CLASS;
 
-        $this->getLabelPrototype()->class[] = CheckboxInput::DEFAULT_LABEL_CLASS;
+        $this->getItemLabelPrototype()->class[] = CheckboxInput::DEFAULT_LABEL_CLASS;
     }
 
 
@@ -88,7 +88,7 @@ class CheckboxListInput extends CheckboxList implements IValidationInput
                 );
             }
 
-            $label = (clone $this->getLabelPrototype())
+            $label = (clone $this->getItemLabelPrototype())
                 ->setAttribute(
                     'for',
                     $htmlId
