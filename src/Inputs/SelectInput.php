@@ -66,4 +66,16 @@ class SelectInput extends SelectBox implements IValidationInput
 
 		return $select;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isOk()
+	{
+		return $this->isDisabled()
+			|| $this->prompt !== null
+			|| $this->getValue() !== null
+			|| !$this->getOptions()
+			|| $this->control->size > 1;
+	}
 }
