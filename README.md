@@ -61,7 +61,7 @@ It has all the features of this library pre-configured and extends
 
 ```php
 $form = new BootstrapForm;
-$form->renderMode = RenderMode::Vertical;		
+$form->renderMode = RenderMode::VerticalMode;		
 ```
 
 It will behave pretty much the same as the default Nette form, with the exception of not grouping buttons. 
