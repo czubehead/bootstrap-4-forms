@@ -50,8 +50,8 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param null   $caption
+	 * @param string      $name
+	 * @param null|string $caption
 	 * @return CheckboxInput
 	 */
 	public function addCheckbox($name, $caption = NULL)
@@ -63,9 +63,9 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string     $name
-	 * @param null       $label
-	 * @param array|null $items
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param array|null  $items
 	 * @return CheckboxListInput
 	 */
 	public function addCheckboxList($name, $label = NULL, array $items = NULL)
@@ -109,8 +109,8 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param      $name
-	 * @param null $label
+	 * @param string      $name
+	 * @param string|null $label
 	 * @return TextInput
 	 */
 	public function addEmail($name, $label = NULL)
@@ -142,10 +142,10 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string     $name
-	 * @param null       $label
-	 * @param array|null $items
-	 * @param null       $size
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param array|null  $items
+	 * @param int|null    $size
 	 * @return MultiselectInput
 	 */
 	public function addMultiSelect($name, $label = NULL, array $items = NULL, $size = NULL)
@@ -170,10 +170,10 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param null   $cols
-	 * @param null   $maxLength
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param int|null    $cols
+	 * @param int|null    $maxLength
 	 * @return TextInput
 	 */
 	public function addPassword($name, $label = NULL, $cols = NULL, $maxLength = NULL)
@@ -191,10 +191,10 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param array  $items
-	 * @param null   $size ignore
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param array|null  $items
+	 * @param int|null    $size ignore
 	 * @return SelectInput
 	 */
 	public function addSelect($name, $label = NULL, array $items = NULL, $size = NULL)
@@ -209,9 +209,9 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $caption
-	 * @param string $btnClass secondary button class (primary is 'btn')
+	 * @param string      $name
+	 * @param string|null $caption
+	 * @param string      $btnClass secondary button class (primary is 'btn')
 	 * @return SubmitButtonInput
 	 */
 	public function addSubmit($name, $caption = NULL, $btnClass = 'btn-primary')
@@ -224,10 +224,10 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param null   $cols      ignored
-	 * @param null   $maxLength ignored
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param int|null    $cols
+	 * @param int|null    $maxLength
 	 * @return TextInput
 	 */
 	public function addText($name, $label = NULL, $cols = NULL, $maxLength = NULL)
@@ -245,10 +245,10 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param null   $cols ignored
-	 * @param null   $rows ignored
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param int|null    $cols
+	 * @param int|null    $rows
 	 * @return TextAreaInput
 	 */
 	public function addTextArea($name, $label = NULL, $cols = NULL, $rows = NULL)
@@ -267,9 +267,9 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param bool   $multiple
+	 * @param string      $name
+	 * @param string|null $label
+	 * @param bool        $multiple
 	 * @return UploadInput
 	 */
 	public function addUpload($name, $label = NULL, $multiple = FALSE)
